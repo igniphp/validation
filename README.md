@@ -3,7 +3,7 @@
 ## Igni Validation
 Licensed under MIT License.
 
-**Igni** validation is a package for data validation.
+**Igni** validation is simple, lightweight and extensible validation library.
 
 ## Installation
 

@@ -76,6 +76,15 @@ Creates validator that checks if passed value contains only digits and letters.
 - `$min` defines minimum length 
 - `$max` defines maximum length
 
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::alnum($minLength = 2);
+var_dump($validator('a1')); // true
+```
+
 ### `Constraint::alpha(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value contains only letters.
@@ -84,13 +93,40 @@ Creates validator that checks if passed value contains only letters.
 - `$min` defines minimum length 
 - `$max` defines maximum length
 
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::alpha($minLength = 2);
+var_dump($validator('aaa')); // true
+```
+
 ### `Constraint::boolean()`
 
 Creates validator that checks if passed value is valid boolean expression.
 
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::boolean();
+var_dump($validator(false)); // true
+```
+
 ### `Constraint::chain(Rule ...$rules)`
 
 Creates validator that uses other validators to perform multiple validations on passed value.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::chain(Constraint::text(), Constraint::date());
+var_dump($validator('2018-09-10')); // true
+```
 
 ### `Constraint::date(string $format = null, $min = null, $max = null)`
 
@@ -100,10 +136,28 @@ Creates validator that checks if passed value is valid date.
  - `$format` restricts format of passed value
  - `$min` defines minimum date range 
  - `$max` defines maximum date range
+ 
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::date('Y-m-d');
+var_dump($validator('2018-09-10')); // true
+ ```
      
 ### `Constraint::email()`
 
 Creates validator that checks if passed value is valid email address.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::email();
+var_dump($validator('test@test.com')); // true
+ ```
 
 ### `Constraint::falsy()`
 
@@ -113,6 +167,15 @@ Creates validator that checks if passed value is valid falsy expression;
 - `false`
 - 0
 
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::falsy();
+var_dump($validator('no')); // true
+ ```
+
 ### `Constraint::truthy()`
 
 Creates validator that checks if passed value is valid truthy expression;
@@ -121,9 +184,27 @@ Creates validator that checks if passed value is valid truthy expression;
 - 1
 - `yes`
 
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::truthy();
+var_dump($validator('yes')); // true
+ ```
+
 ### `Constraint::in(...$values)`
 
 Creates validator that checks if passed value exists in defined list of values.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::in('no', 'yes', 'test');
+var_dump($validator('no')); // true
+ ```
 
 ### `Constraint::integer(int $min = null, int $max = null)`
 
@@ -133,6 +214,15 @@ Creates validator that checks if passed value is valid integer expression.
  - `$min` defines minimum value
  - `$max` defines maximum value
 
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::integer(10, 100);
+var_dump($validator(11)); // true
+ ```
+
 ### `Constraint::number(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value is valid number expression.
@@ -140,10 +230,28 @@ Creates validator that checks if passed value is valid number expression.
 #### Parameters
  - `$min` defines minimum value
  - `$max` defines maximum value
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::number(10, 100);
+var_dump($validator('11.2')); // true
+ ```
  
 ### `Constraint::uuid()`
 
 Creates validator that checks if passed value is valid uuid.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::uuid();
+var_dump($validator('1ff60619-81cc-4d8e-88ac-a3ae36a97dce')); // true
+ ```
 
 ### `Constraint::text()`
 
@@ -152,6 +260,19 @@ Creates validator that accepts every non empty string.
 ### `Constraint::group(array $validators)`
 
 Creates validator that validates passed value by group of defined validators.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::group([
+    'name' => Constraint::text(),
+    'age' => Constraint::integer(1, 200),
+    'email' => Constraint::email(),
+]);
+var_dump($validator(['name' => 'John Doe', 'age' => 29, 'email' => 'john@gmail.com'])); // true
+ ```
 
 ## Creating custom validator
 

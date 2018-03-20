@@ -2,10 +2,10 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Utils\TestCase;
 use Igni\Validation\Rules\Chain;
 use Igni\Validation\Rules\Email;
 use Igni\Validation\Rules\Text;
+use PHPUnit\Framework\TestCase;
 
 class ChainTest extends TestCase
 {

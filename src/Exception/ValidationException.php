@@ -2,7 +2,7 @@
 
 namespace Igni\Validation\Exception;
 
-use Igni\Exception\RuntimeException;
+use RuntimeException;
 use Igni\Validation\Message\DefaultMessageFactory;
 use Igni\Validation\Message\MessageFactory;
 use Igni\Validation\Rule;

@@ -2,10 +2,9 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Exception\InvalidArgumentException;
-use Igni\Utils\TestCase;
 use Igni\Validation\Exception\ValidationException;
 use Igni\Validation\Rules\Alpha;
+use PHPUnit\Framework\TestCase;
 
 class AlphaTest extends TestCase
 {

@@ -2,12 +2,11 @@
 
 namespace IgniTestFunctional\Validator\Rules;
 
-use Igni\Utils\TestCase;
 use Igni\Validation\Constraint;
 use Igni\Validation\Failures\EmptyValueFailure;
 use Igni\Validation\Failures\OutOfRangeFailure;
 use Igni\Validation\Rules\Group;
-use Igni\Validation\ValidationFailure;
+use PHPUnit\Framework\TestCase;
 
 class GroupTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Utils\TestCase;
 use Igni\Validation\Rules\Truthy;
+use PHPUnit\Framework\TestCase;
 
 class TruthyTest extends TestCase
 {

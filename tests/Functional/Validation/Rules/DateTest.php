@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Utils\TestCase;
+use PHPUnit\Framework\TestCase;
 use Igni\Validation\Rules\Date;
 
 class DateTest extends TestCase

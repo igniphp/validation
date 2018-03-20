@@ -2,8 +2,8 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Utils\TestCase;
 use Igni\Validation\Rules\Contains;
+use PHPUnit\Framework\TestCase;
 
 class ContainsTest extends TestCase
 {

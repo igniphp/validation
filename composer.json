@@ -1,8 +1,10 @@
 {
   "name": "igniphp/validation",
-  "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "validation",
+    "php"
+  ],
   "license": "MIT",
   "authors": [
     {
@@ -11,8 +13,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1.0",
-    "igniphp/common": ">=1.0.0"
+    "php": "^7.1.0"
+  },
+  "suggest": {
+    "igniphp/common": "For uuid validation support"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7",

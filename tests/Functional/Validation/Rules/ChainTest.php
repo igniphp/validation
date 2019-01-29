@@ -12,7 +12,7 @@ class ChainTest extends TestCase
     public function testPass(): void
     {
         $validator = new Chain(new Text(), new Email());
-        self::assertTrue($validator('d@w.com'));
+        self::assertTrue($validator('test@dom.com'));
         self::assertTrue($validator('test@domain.com'));
     }
 

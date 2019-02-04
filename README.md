@@ -223,6 +223,46 @@ $validator = Constraint::integer(10, 100);
 var_dump($validator(11)); // true
  ```
 
+### `Constraint::ip()`
+
+Creates validator that checks if passed value is valid ip address.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::ip();
+var_dump($validator('123.123.123.123')); // true
+```
+
+### `Constraint::ipv4()`
+
+Creates validator that checks if passed value is valid ip v4 address.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::ipv4();
+var_dump($validator('123.123.123.123')); // true
+```
+
+### `Constraint::ipv6()`
+
+Creates validator that checks if passed value is valid ip v6 address.
+
+#### Example
+ ```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::ipv6();
+var_dump($validator('2001:0db8:85a3:0000:0000:8a2e:0370:7334')); // true
+```
+ 
+
 ### `Constraint::number(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value is valid number expression.
@@ -245,13 +285,39 @@ var_dump($validator('11.2')); // true
 Creates validator that checks if passed value is valid uuid.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Constraint;
  
 $validator = Constraint::uuid();
 var_dump($validator('1ff60619-81cc-4d8e-88ac-a3ae36a97dce')); // true
- ```
+```
+
+### `Constraint::uri()`
+
+Creates validator that checks if passed value is valid uri string.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::uri();
+var_dump($validator('/some/uri')); // true
+```
+
+### `Constraint::url()`
+
+Creates validator that checks if passed value is valid url string.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::uri();
+var_dump($validator('http://domain.com/some/uri')); // true
+```
 
 ### `Constraint::text()`
 

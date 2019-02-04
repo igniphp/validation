@@ -2,8 +2,7 @@
 
 namespace Igni\Validation;
 
-use Igni\Exception\BadMethodCallException;
-use Igni\Validation\Message\MessageFactory;
+use BadMethodCallException;
 
 /**
  * Builder class for possible validation rules.
@@ -17,11 +16,16 @@ use Igni\Validation\Message\MessageFactory;
  * @method static Rules\Falsy falsy()
  * @method static Rules\In in(...$possibleValues)
  * @method static Rules\Integer integer(int $min = null, int $max = null)
+ * @method static Rules\Ip ip()
+ * @method static Rules\Ipv4 ipv4()
+ * @method static Rules\Ipv6 ipv6()
  * @method static Rules\Number number(float $min = null, float $max = null)
  * @method static Rules\Uuid uuid()
  * @method static Rules\Regex regex(string $regex)
  * @method static Rules\Text text(int $min = null, int $max = null)
  * @method static Rules\Truthy truthy()
+ * @method static Rules\Uri uri()
+ * @method static Rules\Url url()
  * @method static Rules\Group group(array $definition)
  *
  * @example:

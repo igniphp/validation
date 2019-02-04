@@ -5,6 +5,7 @@ namespace Igni\Validation\Rules;
 use Igni\Validation\Exception\ValidationException;
 use Igni\Validation\Rule;
 use Igni\Validation\ValidationFailure;
+use ArrayAccess;
 
 class Group extends Rule
 {
@@ -21,7 +22,7 @@ class Group extends Rule
     public function assert($input): bool
     {
         $this->failures = [];
-        if (!is_array($input) && !$input instanceof \ArrayAccess) {
+        if (!is_array($input) && !$input instanceof ArrayAccess) {
             return false;
         }
         foreach ($this->group as $name => $rule) {

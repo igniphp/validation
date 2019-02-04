@@ -73,11 +73,11 @@ throw ValidationException::forValidationFailure($validationFailures[0]);
  - [alpha](#constraintalphaint-min--null-int-max--null)
  - [boolean](#constraintboolean)
  - [chain](#constraintchainrule-rules)
- - [contains]()
- - [date]()
- - [email]()
- - [falsy]()
- - [group]()
+ - [contains](#constraintcontainsstring-value)
+ - [date](#constraintdatestring-format--null-min--null-max--null)
+ - [email](#constraintemail)
+ - [falsy](#constraintfalsy)
+ - [group](#group)
  - [in]()
  - [integer]()
  - [ip]()
@@ -204,13 +204,34 @@ Creates validator that checks if passed value is valid falsy expression;
 - 0
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Constraint;
  
 $validator = Constraint::falsy();
 var_dump($validator('no')); // true
- ```
+```
+
+### `Constraint::group(array $validatorsHash)`
+
+Creates validator with key/value hash that validates other hashes.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+ 
+$validator = Constraint::group([
+    'email' => Constraint::email(),
+    'password' => Constraint::text(),
+    'date_of_birth' => Constraint::date('Y-m-d'),
+]);
+var_dump($validator([
+    'email' => 'test@domain.com',
+    'password' => 'secret',
+    'date_of_birth' => '2019-01-01',
+])); // true
+```
 
 ### `Constraint::truthy()`
 

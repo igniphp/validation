@@ -15,6 +15,7 @@ use BadMethodCallException;
  * @method static Rules\Date date(string $format = null, $min = null, $max = null)
  * @method static Rules\Email email()
  * @method static Rules\Falsy falsy()
+ * @method static Rules\Group group(array $definition)
  * @method static Rules\In in(...$possibleValues)
  * @method static Rules\Integer integer(int $min = null, int $max = null)
  * @method static Rules\Ip ip()
@@ -27,7 +28,6 @@ use BadMethodCallException;
  * @method static Rules\Truthy truthy()
  * @method static Rules\Uri uri()
  * @method static Rules\Url url()
- * @method static Rules\Group group(array $definition)
  *
  * @example:
  * Constrain::alnum(2)('test');

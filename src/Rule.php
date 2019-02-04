@@ -37,6 +37,8 @@ use BadMethodCallException;
  */
 abstract class Rule implements Validator
 {
+    use StaticRuleFactory;
+
     private const RULES_NAMESPACE = '\\Igni\\Validation\\Rules\\';
 
     /** @var string */
@@ -46,16 +48,6 @@ abstract class Rule implements Validator
     protected $attributes = [];
 
     protected $failures = [];
-
-    public static function __callStatic($name, $arguments): Rule
-    {
-        $ruleClass = self::RULES_NAMESPACE . ucfirst($name);
-        if (!class_exists($ruleClass)) {
-            throw new BadMethodCallException("Validator (${name}) does not exists.");
-        }
-
-        return new $ruleClass(...$arguments);
-    }
 
     abstract protected function assert($input): bool;
 

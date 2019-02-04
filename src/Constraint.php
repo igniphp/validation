@@ -11,6 +11,7 @@ use BadMethodCallException;
  * @method static Rules\Alpha alpha(int $min = null, int $max = null)
  * @method static Rules\Boolean boolean(int $min = null, int $max = null)
  * @method static Rules\Chain chain(Rule ...$rules)
+ * @method static Rules\Contains contains(string $text)
  * @method static Rules\Date date(string $format = null, $min = null, $max = null)
  * @method static Rules\Email email()
  * @method static Rules\Falsy falsy()

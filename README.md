@@ -68,6 +68,29 @@ throw ValidationException::forValidationFailure($validationFailures[0]);
 
 ## API
 
+### Validation list
+ - [alnum](#constraintalnumint-min--null-int-max--null)
+ - [alpha](#constraintalphaint-min--null-int-max--null)
+ - [boolean](#constraintboolean)
+ - [chain](#constraintchainrule-rules)
+ - [contains]()
+ - [date]()
+ - [email]()
+ - [falsy]()
+ - [group]()
+ - [in]()
+ - [integer]()
+ - [ip]()
+ - [ipv4]()
+ - [ipv6]()
+ - [number]()
+ - [regex]()
+ - [text]()
+ - [truthy]()
+ - [uri]()
+ - [url]()
+ - [uuid]()
+
 ### `Constraint::alnum(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value contains only digits and letters. 
@@ -126,6 +149,19 @@ use Igni\Validation\Constraint;
 
 $validator = Constraint::chain(Constraint::text(), Constraint::date());
 var_dump($validator('2018-09-10')); // true
+```
+
+### `Constraint::contains(string $value)`
+
+Creates validator that checks if passed string is contained in the validated string.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::contains('example');
+var_dump($validator('Test example')); // true
 ```
 
 ### `Constraint::date(string $format = null, $min = null, $max = null)`

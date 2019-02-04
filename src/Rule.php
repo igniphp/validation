@@ -5,7 +5,7 @@ namespace Igni\Validation;
 use Igni\Validation\Rules\LengthRule;
 use Igni\Validation\Rules\RangeRule;
 
-abstract class Rule
+abstract class Rule implements Validator
 {
     /** @var string */
     protected $name;

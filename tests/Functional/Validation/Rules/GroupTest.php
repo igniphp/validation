@@ -52,10 +52,9 @@ class GroupTest extends TestCase
     {
         $validateUserData = new Group([
             'name' => Rule::text(),
-            'email' => Rule::email(),
+            'email' => Rule::email()->required(false),
             'age' => Rule::integer(2, 100),
         ]);
-        $validateUserData->allowEmpty('email');
 
         self::assertTrue($validateUserData([
             'name' => 'John Test',

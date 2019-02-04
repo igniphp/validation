@@ -1,0 +1,13 @@
+<?php declare(strict_types=1);
+
+namespace Igni\Validation\Rules;
+
+use Igni\Validation\Rule;
+
+class Uri extends Rule
+{
+    protected function assert($input): bool
+    {
+        return true === filter_var('http://example.com/' . $input, FILTER_VALIDATE_URL);
+    }
+}

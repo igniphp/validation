@@ -12,11 +12,19 @@ class Group extends Rule
     /** @var Rule[] */
     private $group;
 
+    /** @var string[] */
+    private $allowEmpty = [];
+
     public function __construct(array $group)
     {
         $this->validateRules($group);
 
         $this->group = $group;
+    }
+
+    public function allowEmpty(string ...$keys): void
+    {
+        $this->allowEmpty = $keys;
     }
 
     public function assert($input): bool
@@ -26,8 +34,12 @@ class Group extends Rule
             return false;
         }
         foreach ($this->group as $name => $rule) {
+            if ((!isset($input[$name]) || empty($input[$name])) && in_array($name, $this->allowEmpty)) {
+                continue;
+            }
+
             if (!$rule($input[$name] ?? null)) {
-                $this->failures[] =  $rule->getFailures()[0];
+                $this->failures[] = $rule->getFailures()[0];
             }
         }
 

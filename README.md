@@ -18,9 +18,9 @@ composer install igniphp/validation
 ```php
 <?php
 
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$numberValidator = Constraint::number($min = 0);
+$numberValidator = Rule::number($min = 0);
 
 $numberValidator(1);// true
 $numberValidator(-1);// false
@@ -36,15 +36,15 @@ Allows to validate complex arrays
 ```php
 <?php
 
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 use Igni\Validation\Failures;
 use Igni\Validation\Exception\ValidationException;
 
-$userValidator = Constraint::group([
-    'name' => Constraint::alnum(),
-    'age' => Constraint::number(1, 200),
-    'email' => Constraint::email(),
-    'address' => Constraint::text(),
+$userValidator = Rule::group([
+    'name' => Rule::alnum(),
+    'age' => Rule::number(1, 200),
+    'email' => Rule::email(),
+    'address' => Rule::text(),
 ]);
 
 $userValidator([
@@ -69,29 +69,29 @@ throw ValidationException::forValidationFailure($validationFailures[0]);
 ## API
 
 ### Validation list
- - [alnum](#constraintalnumint-min--null-int-max--null)
- - [alpha](#constraintalphaint-min--null-int-max--null)
- - [boolean](#constraintboolean)
- - [chain](#constraintchainrule-rules)
- - [contains](#constraintcontainsstring-value)
- - [date](#constraintdatestring-format--null-min--null-max--null)
- - [email](#constraintemail)
- - [falsy](#constraintfalsy)
- - [group](#constraintgrouparray-validatorshash)
- - [in](#constraintinvalues)
- - [integer](#constraintintegerint-min--null-int-max--null)
- - [ip](#constraintip)
- - [ipv4](#constraintipv4)
- - [ipv6](#constraintipv6)
- - [number](#constraintnumberint-min--null-int-max--null)
- - [regex](#constraintregexstring-pattern)
- - [text](#constrainttextint-minlength--null-int-maxlength--null)
- - [truthy](#constrainttruthy)
- - [uri](#constrainturi)
- - [url](#constrainturl)
- - [uuid](#constraintuuid)
+ - [alnum](#rulealnumint-min--null-int-max--null)
+ - [alpha](#rulealphaint-min--null-int-max--null)
+ - [boolean](#ruleboolean)
+ - [chain](#rulechainrule-rules)
+ - [contains](#rulecontainsstring-value)
+ - [date](#ruledatestring-format--null-min--null-max--null)
+ - [email](#ruleemail)
+ - [falsy](#rulefalsy)
+ - [group](#rulegrouparray-validatorshash)
+ - [in](#ruleinvalues)
+ - [integer](#ruleintegerint-min--null-int-max--null)
+ - [ip](#ruleip)
+ - [ipv4](#ruleipv4)
+ - [ipv6](#ruleipv6)
+ - [number](#rulenumberint-min--null-int-max--null)
+ - [regex](#ruleregexstring-pattern)
+ - [text](#ruletextint-minlength--null-int-maxlength--null)
+ - [truthy](#ruletruthy)
+ - [uri](#ruleuri)
+ - [url](#ruleurl)
+ - [uuid](#ruleuuid)
 
-### `Constraint::alnum(int $min = null, int $max = null)`
+### `Rule::alnum(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value contains only digits and letters. 
 
@@ -102,13 +102,13 @@ Creates validator that checks if passed value contains only digits and letters.
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::alnum($minLength = 2);
+$validator = Rule::alnum($minLength = 2);
 var_dump($validator('a1')); // true
 ```
 
-### `Constraint::alpha(int $min = null, int $max = null)`
+### `Rule::alpha(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value contains only letters.
 
@@ -119,52 +119,52 @@ Creates validator that checks if passed value contains only letters.
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::alpha($minLength = 2);
+$validator = Rule::alpha($minLength = 2);
 var_dump($validator('aaa')); // true
 ```
 
-### `Constraint::boolean()`
+### `Rule::boolean()`
 
 Creates validator that checks if passed value is valid boolean expression.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::boolean();
+$validator = Rule::boolean();
 var_dump($validator(false)); // true
 ```
 
-### `Constraint::chain(Rule ...$rules)`
+### `Rule::chain(Rule ...$rules)`
 
 Creates validator that uses other validators to perform multiple validations on passed value.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::chain(Constraint::text(), Constraint::date());
+$validator = Rule::chain(Rule::text(), Rule::date());
 var_dump($validator('2018-09-10')); // true
 ```
 
-### `Constraint::contains(string $value)`
+### `Rule::contains(string $value)`
 
 Creates validator that checks if passed string is contained in the validated string.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::contains('example');
+$validator = Rule::contains('example');
 var_dump($validator('Test example')); // true
 ```
 
-### `Constraint::date(string $format = null, $min = null, $max = null)`
+### `Rule::date(string $format = null, $min = null, $max = null)`
 
 Creates validator that checks if passed value is valid date. 
 
@@ -176,26 +176,26 @@ Creates validator that checks if passed value is valid date.
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::date('Y-m-d');
+$validator = Rule::date('Y-m-d');
 var_dump($validator('2018-09-10')); // true
  ```
      
-### `Constraint::email()`
+### `Rule::email()`
 
 Creates validator that checks if passed value is valid email address.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::email();
+$validator = Rule::email();
 var_dump($validator('test@test.com')); // true
  ```
 
-### `Constraint::falsy()`
+### `Rule::falsy()`
 
 Creates validator that checks if passed value is valid falsy expression;
 - `off`
@@ -206,25 +206,25 @@ Creates validator that checks if passed value is valid falsy expression;
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::falsy();
+$validator = Rule::falsy();
 var_dump($validator('no')); // true
 ```
 
-### `Constraint::group(array $validatorsHash)`
+### `Rule::group(array $validatorsHash)`
 
 Creates validator with key/value hash that validates other hashes.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::group([
-    'email' => Constraint::email(),
-    'password' => Constraint::text(),
-    'date_of_birth' => Constraint::date('Y-m-d'),
+$validator = Rule::group([
+    'email' => Rule::email(),
+    'password' => Rule::text(),
+    'date_of_birth' => Rule::date('Y-m-d'),
 ]);
 var_dump($validator([
     'email' => 'test@domain.com',
@@ -233,20 +233,20 @@ var_dump($validator([
 ])); // true
 ```
 
-### `Constraint::regex(string $pattern)`
+### `Rule::regex(string $pattern)`
 
 Creates validator that checks if passed string matches the pattern.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::regex('^-[a-z]+$');
+$validator = Rule::regex('^-[a-z]+$');
 var_dump($validator('-aa')); // true
 ```
 
-### `Constraint::truthy()`
+### `Rule::truthy()`
 
 Creates validator that checks if passed value is valid truthy expression;
 - `on`
@@ -257,13 +257,13 @@ Creates validator that checks if passed value is valid truthy expression;
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::truthy();
+$validator = Rule::truthy();
 var_dump($validator('yes')); // true
  ```
 
-### `Constraint::text(int $minLength = null, int $maxLength = null)`
+### `Rule::text(int $minLength = null, int $maxLength = null)`
 
 Creates validator that checks if passed value is string.
 
@@ -274,26 +274,26 @@ Creates validator that checks if passed value is string.
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
 
-$validator = Constraint::text($minLength = 2);
+$validator = Rule::text($minLength = 2);
 var_dump($validator('aaa')); // true
 ```
 
-### `Constraint::in(...$values)`
+### `Rule::in(...$values)`
 
 Creates validator that checks if passed value exists in defined list of values.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::in('no', 'yes', 'test');
+$validator = Rule::in('no', 'yes', 'test');
 var_dump($validator('no')); // true
  ```
 
-### `Constraint::integer(int $min = null, int $max = null)`
+### `Rule::integer(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value is valid integer expression.
 
@@ -304,53 +304,53 @@ Creates validator that checks if passed value is valid integer expression.
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::integer(10, 100);
+$validator = Rule::integer(10, 100);
 var_dump($validator(11)); // true
  ```
 
-### `Constraint::ip()`
+### `Rule::ip()`
 
 Creates validator that checks if passed value is valid ip address.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::ip();
+$validator = Rule::ip();
 var_dump($validator('123.123.123.123')); // true
 ```
 
-### `Constraint::ipv4()`
+### `Rule::ipv4()`
 
 Creates validator that checks if passed value is valid ip v4 address.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::ipv4();
+$validator = Rule::ipv4();
 var_dump($validator('123.123.123.123')); // true
 ```
 
-### `Constraint::ipv6()`
+### `Rule::ipv6()`
 
 Creates validator that checks if passed value is valid ip v6 address.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::ipv6();
+$validator = Rule::ipv6();
 var_dump($validator('2001:0db8:85a3:0000:0000:8a2e:0370:7334')); // true
 ```
  
 
-### `Constraint::number(int $min = null, int $max = null)`
+### `Rule::number(int $min = null, int $max = null)`
 
 Creates validator that checks if passed value is valid number expression.
 
@@ -361,68 +361,68 @@ Creates validator that checks if passed value is valid number expression.
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::number(10, 100);
+$validator = Rule::number(10, 100);
 var_dump($validator('11.2')); // true
  ```
  
-### `Constraint::uuid()`
+### `Rule::uuid()`
 
 Creates validator that checks if passed value is valid uuid.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::uuid();
+$validator = Rule::uuid();
 var_dump($validator('1ff60619-81cc-4d8e-88ac-a3ae36a97dce')); // true
 ```
 
-### `Constraint::uri()`
+### `Rule::uri()`
 
 Creates validator that checks if passed value is valid uri string.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::uri();
+$validator = Rule::uri();
 var_dump($validator('/some/uri')); // true
 ```
 
-### `Constraint::url()`
+### `Rule::url()`
 
 Creates validator that checks if passed value is valid url string.
 
 #### Example
 ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::uri();
+$validator = Rule::uri();
 var_dump($validator('http://domain.com/some/uri')); // true
 ```
 
-### `Constraint::text()`
+### `Rule::text()`
 
 Creates validator that accepts every non empty string.
 
-### `Constraint::group(array $validators)`
+### `Rule::group(array $validators)`
 
 Creates validator that validates passed value by group of defined validators.
 
 #### Example
  ```php
 <?php
-use Igni\Validation\Constraint;
+use Igni\Validation\Rule;
  
-$validator = Constraint::group([
-    'name' => Constraint::text(),
-    'age' => Constraint::integer(1, 200),
-    'email' => Constraint::email(),
+$validator = Rule::group([
+    'name' => Rule::text(),
+    'age' => Rule::integer(1, 200),
+    'email' => Rule::email(),
 ]);
 var_dump($validator(['name' => 'John Doe', 'age' => 29, 'email' => 'john@gmail.com'])); // true
  ```

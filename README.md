@@ -77,19 +77,19 @@ throw ValidationException::forValidationFailure($validationFailures[0]);
  - [date](#constraintdatestring-format--null-min--null-max--null)
  - [email](#constraintemail)
  - [falsy](#constraintfalsy)
- - [group](#group)
- - [in]()
- - [integer]()
- - [ip]()
- - [ipv4]()
- - [ipv6]()
- - [number]()
- - [regex]()
- - [text]()
- - [truthy]()
- - [uri]()
- - [url]()
- - [uuid]()
+ - [group](#constraintgrouparray-validatorshash)
+ - [in](#constraintinvalues)
+ - [integer](#constraintintegerint-min--null-int-max--null)
+ - [ip](#constraintip)
+ - [ipv4](#constraintipv4)
+ - [ipv6](#constraintipv6)
+ - [number](#constraintnumberint-min--null-int-max--null)
+ - [regex](#constraintregexstring-pattern)
+ - [text](#constrainttextint-minlength--null-int-maxlength--null)
+ - [truthy](#constrainttruthy)
+ - [uri](#constrainturi)
+ - [url](#constrainturl)
+ - [uuid](#constraintuuid)
 
 ### `Constraint::alnum(int $min = null, int $max = null)`
 
@@ -233,6 +233,19 @@ var_dump($validator([
 ])); // true
 ```
 
+### `Constraint::regex(string $pattern)`
+
+Creates validator that checks if passed string matches the pattern.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::regex('^-[a-z]+$');
+var_dump($validator('-aa')); // true
+```
+
 ### `Constraint::truthy()`
 
 Creates validator that checks if passed value is valid truthy expression;
@@ -249,6 +262,23 @@ use Igni\Validation\Constraint;
 $validator = Constraint::truthy();
 var_dump($validator('yes')); // true
  ```
+
+### `Constraint::text(int $minLength = null, int $maxLength = null)`
+
+Creates validator that checks if passed value is string.
+
+#### Parameters
+- `$minLength` defines minimum length 
+- `$maxLength` defines maximum length
+
+#### Example
+```php
+<?php
+use Igni\Validation\Constraint;
+
+$validator = Constraint::text($minLength = 2);
+var_dump($validator('aaa')); // true
+```
 
 ### `Constraint::in(...$values)`
 

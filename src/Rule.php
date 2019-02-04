@@ -37,7 +37,7 @@ use BadMethodCallException;
  */
 abstract class Rule implements Validator
 {
-    use StaticFactory;
+    use StaticRuleFactory;
 
     private const RULES_NAMESPACE = '\\Igni\\Validation\\Rules\\';
 

@@ -8,7 +8,7 @@ use Igni\Validation\Exception\StaticFactoryException;
 /**
  * Magic static factory method for convenient Rule instantiation.
  */
-trait StaticFactory
+trait StaticRuleFactory
 {
     public static function __callStatic($name, $arguments): Rule
     {

@@ -3,9 +3,9 @@
 namespace Igni\Validation\Message;
 
 use Igni\Validation\Message;
-use Igni\Validation\ValidationFailure;
+use Igni\Validation\ValidationError;
 
 interface MessageFactory
 {
-    public function create(ValidationFailure $failure): Message;
+    public function create(ValidationError $failure): Message;
 }

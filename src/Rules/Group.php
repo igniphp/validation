@@ -4,7 +4,7 @@ namespace Igni\Validation\Rules;
 
 use Igni\Validation\Exception\ValidationException;
 use Igni\Validation\Rule;
-use Igni\Validation\ValidationFailure;
+use Igni\Validation\ValidationError;
 use ArrayAccess;
 
 class Group extends Rule
@@ -27,7 +27,7 @@ class Group extends Rule
         }
         foreach ($this->group as $name => $rule) {
             if (!$rule($input[$name] ?? null)) {
-                $this->failures[] = $rule->getFailures()[0];
+                $this->failures[] = $rule->getErrors()[0];
             }
         }
 
@@ -39,12 +39,12 @@ class Group extends Rule
     }
 
     /**
-     * @return ValidationFailure[]
+     * @return ValidationError[]
      */
-    public function getFailures(): array
+    public function getErrors(): array
     {
         // Remove the last assertion failure, as we dont need it
-        $failures = parent::getFailures();
+        $failures = parent::getErrors();
         array_pop($failures);
 
         return $failures;

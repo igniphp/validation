@@ -3,8 +3,8 @@
 namespace IgniTestFunctional\Validator\Rules;
 
 use Igni\Validation\Rule;
-use Igni\Validation\Failures\EmptyValueFailure;
-use Igni\Validation\Failures\OutOfRangeFailure;
+use Igni\Validation\Error\EmptyValueError;
+use Igni\Validation\Error\OutOfRangeError;
 use Igni\Validation\Rules\Group;
 use PHPUnit\Framework\TestCase;
 
@@ -41,11 +41,11 @@ class GroupTest extends TestCase
 
         self::assertFalse($result);
 
-        $failures = $validateUserData->getFailures();
+        $failures = $validateUserData->getErrors();
 
         self::assertCount(2, $failures);
-        self::assertInstanceOf(EmptyValueFailure::class, $failures[0]);
-        self::assertInstanceOf(OutOfRangeFailure::class, $failures[1]);
+        self::assertInstanceOf(EmptyValueError::class, $failures[0]);
+        self::assertInstanceOf(OutOfRangeError::class, $failures[1]);
     }
 
     public function testAllowEmpty(): void

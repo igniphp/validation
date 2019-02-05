@@ -5,13 +5,18 @@ namespace Igni\Validation;
 interface Validator
 {
     /**
-     * @param array $data
-     * @return bool
+     * @param mixed $input
      */
-    public function validate($data): bool;
+    public function validate($input): void;
 
     /**
-     * @return ValidationFailure[]
+     * @param mixed $input
+     * @return bool
      */
-    public function getFailures(): array;
+    public function isValid($input): bool;
+
+    /**
+     * @return ValidationError[]
+     */
+    public function getErrors(): array;
 }

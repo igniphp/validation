@@ -18,7 +18,7 @@ class Chain extends Rule
     {
         foreach ($this->chain as $rule) {
             if (!$rule($input)) {
-                $this->failures[] = $rule->getFailures();
+                $this->failures[] = $rule->getErrors();
             }
         }
 

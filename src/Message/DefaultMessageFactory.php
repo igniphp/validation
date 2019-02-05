@@ -2,15 +2,15 @@
 
 namespace Igni\Validation\Message;
 
-use Igni\Validation\Failures\EmptyValueFailure;
-use Igni\Validation\Failures\InvalidLengthFailure;
-use Igni\Validation\Failures\OutOfRangeFailure;
-use Igni\Validation\Failures\ValueTooHigh;
-use Igni\Validation\Failures\ValueTooLong;
-use Igni\Validation\Failures\ValueTooLow;
-use Igni\Validation\Failures\ValueTooShort;
+use Igni\Validation\Error\EmptyValueError;
+use Igni\Validation\Error\InvalidLengthError;
+use Igni\Validation\Error\OutOfRangeError;
+use Igni\Validation\Error\ValueTooHigh;
+use Igni\Validation\Error\ValueTooLong;
+use Igni\Validation\Error\ValueTooLow;
+use Igni\Validation\Error\ValueTooShort;
 use Igni\Validation\Message;
-use Igni\Validation\ValidationFailure;
+use Igni\Validation\ValidationError;
 use Igni\Validation\Rules;
 
 final class DefaultMessageFactory implements MessageFactory
@@ -65,7 +65,7 @@ final class DefaultMessageFactory implements MessageFactory
         $this->map = self::$defaultMap + $map;
     }
 
-    public function create(ValidationFailure $failure): Message
+    public function create(ValidationError $failure): Message
     {
         switch (true) {
             case $failure instanceof ValueTooHigh:
@@ -80,13 +80,13 @@ final class DefaultMessageFactory implements MessageFactory
             case $failure instanceof ValueTooShort:
                 return new Message(self::TOO_SHORT, $failure->getContext());
 
-            case $failure instanceof InvalidLengthFailure:
+            case $failure instanceof InvalidLengthError:
                 return new Message(self::INVALID_LENGTH, $failure->getContext());
 
-            case $failure instanceof OutOfRangeFailure:
+            case $failure instanceof OutOfRangeError:
                 return new Message(self::OUT_OF_RANGE, $failure->getContext());
 
-            case $failure instanceof EmptyValueFailure:
+            case $failure instanceof EmptyValueError:
                 return new Message(self::REQUIRED, $failure->getContext());
 
             default:
@@ -94,7 +94,7 @@ final class DefaultMessageFactory implements MessageFactory
         }
     }
 
-    private function factoryForAssertionFailure(ValidationFailure $failure): Message
+    private function factoryForAssertionFailure(ValidationError $failure): Message
     {
         $context = $failure->getContext();
 

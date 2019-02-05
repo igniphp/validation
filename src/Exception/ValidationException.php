@@ -6,7 +6,7 @@ use RuntimeException;
 use Igni\Validation\Message\DefaultMessageFactory;
 use Igni\Validation\Message\MessageFactory;
 use Igni\Validation\Rule;
-use Igni\Validation\ValidationFailure;
+use Igni\Validation\ValidationError;
 
 class ValidationException extends RuntimeException
 {
@@ -28,7 +28,7 @@ class ValidationException extends RuntimeException
         return new self("Rule (${class}) is not valid instance of " . Rule::class);
     }
 
-    public static function forValidationFailure(ValidationFailure $failure, MessageFactory $messageFactory = null): ValidationException
+    public static function forValidationFailure(ValidationError $failure, MessageFactory $messageFactory = null): ValidationException
     {
         if (!$messageFactory) {
             $messageFactory = self::getMessageFactory();

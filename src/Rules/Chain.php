@@ -18,11 +18,11 @@ class Chain extends Rule
     {
         foreach ($this->chain as $rule) {
             if (!$rule($input)) {
-                $this->failures[] = $rule->getErrors();
+                $this->errors[] = $rule->getErrors();
             }
         }
 
-        if ($this->failures) {
+        if ($this->errors) {
             return false;
         }
 

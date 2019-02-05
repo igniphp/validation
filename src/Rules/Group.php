@@ -21,17 +21,17 @@ class Group extends Rule
 
     public function assert($input): bool
     {
-        $this->failures = [];
+        $this->errors = [];
         if (!is_array($input) && !$input instanceof ArrayAccess) {
             return false;
         }
         foreach ($this->group as $name => $rule) {
             if (!$rule($input[$name] ?? null)) {
-                $this->failures[] = $rule->getErrors()[0];
+                $this->errors[] = $rule->getErrors()[0];
             }
         }
 
-        if ($this->failures) {
+        if ($this->errors) {
             return false;
         }
 

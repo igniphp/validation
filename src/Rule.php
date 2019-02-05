@@ -2,6 +2,7 @@
 
 namespace Igni\Validation;
 
+use Igni\Validation\Exception\ValidationException;
 use Igni\Validation\Rules\LengthRule;
 use Igni\Validation\Rules\RangeRule;
 use BadMethodCallException;
@@ -47,14 +48,15 @@ abstract class Rule implements Validator
     /** @var array */
     protected $attributes = [];
 
-    protected $failures = [];
+    /** @var ValidationError */
+    protected $errors = [];
 
     abstract protected function assert($input): bool;
 
     public function validate($input): void
     {
         if (!$this->isValid($input)) {
-            throw $this->failures[0];
+            throw ValidationException::forValidationError($this->errors[0]);
         }
     }
 
@@ -64,7 +66,7 @@ abstract class Rule implements Validator
 
         if (empty($input)) {
             if (isset($this->attributes['required']) && $this->attributes['required']) {
-                $this->failures[] = ValidationError::forEmptyValue($this);
+                $this->errors[] = ValidationError::forEmptyValue($this);
                 return false;
             }
 
@@ -76,18 +78,18 @@ abstract class Rule implements Validator
         $assert = $this->assert($input);
 
         if (!$assert) {
-            $this->failures[] = ValidationError::forAssertionFailure($this);
+            $this->errors[] = ValidationError::forAssertionFailure($this);
             return false;
         }
 
         if ($this instanceof RangeRule && $this->assertRange($input) !== 0) {
             if (isset($this->attributes['min'], $this->attributes['max'])) {
-                $this->failures[] = ValidationError::forOutOfRange($this);
+                $this->errors[] = ValidationError::forOutOfRange($this);
             } else {
                 if ($this->assertRange($input) > 0) {
-                    $this->failures[] = ValidationError::forValueTooHigh($this);
+                    $this->errors[] = ValidationError::forValueTooHigh($this);
                 } else {
-                    $this->failures[] = ValidationError::forValueTooLow($this);
+                    $this->errors[] = ValidationError::forValueTooLow($this);
                 }
             }
 
@@ -96,12 +98,12 @@ abstract class Rule implements Validator
 
         if ($this instanceof LengthRule && $this->assertLength($input) !== 0) {
             if (isset($this->attributes['min'], $this->attributes['max'])) {
-                $this->failures[] = ValidationError::forInvalidLength($this);
+                $this->errors[] = ValidationError::forInvalidLength($this);
             } else {
                 if ($this->assertLength($input) > 0) {
-                    $this->failures[] = ValidationError::forValueTooLong($this);
+                    $this->errors[] = ValidationError::forValueTooLong($this);
                 } else {
-                    $this->failures[] = ValidationError::forValueTooShort($this);
+                    $this->errors[] = ValidationError::forValueTooShort($this);
                 }
             }
 
@@ -135,7 +137,7 @@ abstract class Rule implements Validator
 
     public function getErrors(): array
     {
-        return $this->failures;
+        return $this->errors;
     }
 
     public function getAttributes(): array

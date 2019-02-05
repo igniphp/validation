@@ -28,7 +28,7 @@ class ValidationException extends RuntimeException
         return new self("Rule (${class}) is not valid instance of " . Rule::class);
     }
 
-    public static function forValidationFailure(ValidationError $failure, MessageFactory $messageFactory = null): ValidationException
+    public static function forValidationError(ValidationError $failure, MessageFactory $messageFactory = null): ValidationException
     {
         if (!$messageFactory) {
             $messageFactory = self::getMessageFactory();

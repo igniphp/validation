@@ -65,32 +65,32 @@ final class DefaultMessageFactory implements MessageFactory
         $this->map = self::$defaultMap + $map;
     }
 
-    public function create(ValidationError $failure): Message
+    public function create(ValidationError $error): Message
     {
         switch (true) {
-            case $failure instanceof ValueTooHigh:
-                return new Message(self::TOO_HIGH, $failure->getContext());
+            case $error instanceof ValueTooHigh:
+                return new Message(self::TOO_HIGH, $error->getContext());
 
-            case $failure instanceof ValueTooLow:
-                return new Message(self::TOO_LOW, $failure->getContext());
+            case $error instanceof ValueTooLow:
+                return new Message(self::TOO_LOW, $error->getContext());
 
-            case $failure instanceof ValueTooLong:
-                return new Message(self::TOO_LONG, $failure->getContext());
+            case $error instanceof ValueTooLong:
+                return new Message(self::TOO_LONG, $error->getContext());
 
-            case $failure instanceof ValueTooShort:
-                return new Message(self::TOO_SHORT, $failure->getContext());
+            case $error instanceof ValueTooShort:
+                return new Message(self::TOO_SHORT, $error->getContext());
 
-            case $failure instanceof InvalidLengthError:
-                return new Message(self::INVALID_LENGTH, $failure->getContext());
+            case $error instanceof InvalidLengthError:
+                return new Message(self::INVALID_LENGTH, $error->getContext());
 
-            case $failure instanceof OutOfRangeError:
-                return new Message(self::OUT_OF_RANGE, $failure->getContext());
+            case $error instanceof OutOfRangeError:
+                return new Message(self::OUT_OF_RANGE, $error->getContext());
 
-            case $failure instanceof EmptyValueError:
-                return new Message(self::REQUIRED, $failure->getContext());
+            case $error instanceof EmptyValueError:
+                return new Message(self::REQUIRED, $error->getContext());
 
             default:
-                return $this->factoryForAssertionFailure($failure);
+                return $this->factoryForAssertionFailure($error);
         }
     }
 

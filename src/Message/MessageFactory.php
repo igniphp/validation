@@ -7,5 +7,5 @@ use Igni\Validation\ValidationError;
 
 interface MessageFactory
 {
-    public function create(ValidationError $failure): Message;
+    public function create(ValidationError $error): Message;
 }

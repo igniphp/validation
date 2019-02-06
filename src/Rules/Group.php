@@ -26,7 +26,7 @@ class Group extends Rule
             return false;
         }
         foreach ($this->group as $name => $rule) {
-            if (!$rule($input[$name] ?? null)) {
+            if (!$rule->isValid($input[$name] ?? null)) {
                 $this->errors[] = $rule->getErrors()[0];
             }
         }

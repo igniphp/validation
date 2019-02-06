@@ -10,16 +10,16 @@ class BooleanTest extends TestCase
     public function testPass(): void
     {
         $validator = new Boolean();
-        self::assertTrue($validator(true));
-        self::assertTrue($validator(false));
+        self::assertTrue($validator->isValid(true));
+        self::assertTrue($validator->isValid(false));
     }
 
     public function testFailure(): void
     {
         $validator = new Boolean();
-        self::assertFalse($validator('1'));
-        self::assertFalse($validator('true'));
-        self::assertFalse($validator('false'));
-        self::assertFalse($validator(1));
+        self::assertFalse($validator->isValid('1'));
+        self::assertFalse($validator->isValid('true'));
+        self::assertFalse($validator->isValid('false'));
+        self::assertFalse($validator->isValid(1));
     }
 }

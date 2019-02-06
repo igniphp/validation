@@ -14,7 +14,7 @@ class EmailTest extends TestCase
     public function testPass(string $address): void
     {
         $validator = new Email();
-        self::assertTrue($validator($address));
+        self::assertTrue($validator->isValid($address));
     }
 
     /**
@@ -24,7 +24,7 @@ class EmailTest extends TestCase
     public function testFailure(string $address): void
     {
         $validator = new Email();
-        self::assertFalse($validator($address));
+        self::assertFalse($validator->isValid($address));
     }
 
     public function provideValidEmails(): array

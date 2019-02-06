@@ -10,21 +10,21 @@ class TruthyTest extends TestCase
     public function testPass(): void
     {
         $validator = new Truthy();
-        self::assertTrue($validator('on'));
-        self::assertTrue($validator('yes'));
-        self::assertTrue($validator(1));
-        self::assertTrue($validator(true));
-        self::assertTrue($validator('true'));
+        self::assertTrue($validator->isValid('on'));
+        self::assertTrue($validator->isValid('yes'));
+        self::assertTrue($validator->isValid(1));
+        self::assertTrue($validator->isValid(true));
+        self::assertTrue($validator->isValid('true'));
 
     }
 
     public function testFailure(): void
     {
         $validator = new Truthy();
-        self::assertFalse($validator('no'));
-        self::assertFalse($validator('0'));
-        self::assertFalse($validator('false'));
-        self::assertFalse($validator('off'));
-        self::assertFalse($validator('random string'));
+        self::assertFalse($validator->isValid('no'));
+        self::assertFalse($validator->isValid('0'));
+        self::assertFalse($validator->isValid('false'));
+        self::assertFalse($validator->isValid('off'));
+        self::assertFalse($validator->isValid('random string'));
     }
 }

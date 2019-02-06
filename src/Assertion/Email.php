@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Email extends Rule
+class Email extends Assertion
 {
     private const MATCHER = '/^([^\s^@]{2,})+([a-z]{1})?[^\.]@[^\.^-][^@]+\.[a-z0-9]{2,}$/i';
 

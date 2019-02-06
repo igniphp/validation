@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Uuid extends Rule
+class Uuid extends Assertion
 {
     private const REGEX_UUID = '/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/';
 

@@ -2,8 +2,8 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Exception\ValidationException;
-use Igni\Validation\Rules\Alnum;
+use Igni\Validation\Exception\InvalidArgumentException;
+use Igni\Validation\Assertion\Alnum;
 use PHPUnit\Framework\TestCase;
 
 class AlnumTest extends TestCase
@@ -28,7 +28,7 @@ class AlnumTest extends TestCase
 
     public function testFailOnReversedRange(): void
     {
-        $this->expectException(ValidationException::class);
+        $this->expectException(InvalidArgumentException::class);
         new Alnum(10, 2);
     }
 }

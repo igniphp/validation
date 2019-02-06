@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
 interface RangeRule
 {

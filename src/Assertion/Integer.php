@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Integer extends Rule implements RangeRule
+class Integer extends Assertion implements RangeRule
 {
     use RangeRuleTrait;
 

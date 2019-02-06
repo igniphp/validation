@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Ip extends Rule
+class Ip extends Assertion
 {
     protected function assert($input): bool
     {

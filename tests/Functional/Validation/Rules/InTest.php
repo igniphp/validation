@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\In;
+use Igni\Validation\Assertion\In;
 use PHPUnit\Framework\TestCase;
 
 class InTest extends TestCase

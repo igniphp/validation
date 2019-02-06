@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Number;
+use Igni\Validation\Assertion\Number;
 use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase

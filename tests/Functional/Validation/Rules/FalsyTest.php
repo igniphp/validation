@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Falsy;
+use Igni\Validation\Assertion\Falsy;
 use PHPUnit\Framework\TestCase;
 
 class FalsyTest extends TestCase

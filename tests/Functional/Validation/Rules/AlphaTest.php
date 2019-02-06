@@ -2,8 +2,8 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Exception\ValidationException;
-use Igni\Validation\Rules\Alpha;
+use Igni\Validation\Exception\InvalidArgumentException;
+use Igni\Validation\Assertion\Alpha;
 use PHPUnit\Framework\TestCase;
 
 class AlphaTest extends TestCase
@@ -26,7 +26,7 @@ class AlphaTest extends TestCase
 
     public function testFailOnReversedRange(): void
     {
-        $this->expectException(ValidationException::class);
+        $this->expectException(InvalidArgumentException::class);
         new Alpha(10, 2);
     }
 }

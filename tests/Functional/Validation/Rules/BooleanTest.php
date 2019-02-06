@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Boolean;
+use Igni\Validation\Assertion\Boolean;
 use PHPUnit\Framework\TestCase;
 
 class BooleanTest extends TestCase

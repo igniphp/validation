@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Alpha extends Rule implements LengthRule
+class Text extends Assertion implements LengthRule
 {
     use LengthRuleTrait;
 
@@ -15,6 +15,6 @@ class Alpha extends Rule implements LengthRule
 
     protected function assert($input): bool
     {
-        return ctype_alpha($input);
+        return is_string($input);
     }
 }

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Exception\InvalidArgumentException;
-use Igni\Validation\Rule;
+use InvalidArgumentException;
+use Igni\Validation\Assertion;
 use DateTime;
 use DateTimeInterface;
 
-class Date extends Rule implements RangeRule
+class Date extends Assertion implements RangeRule
 {
     public function __construct(string $format = null, DateTimeInterface $min = null, DateTimeInterface $max = null)
     {

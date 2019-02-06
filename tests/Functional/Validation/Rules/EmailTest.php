@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Email;
+use Igni\Validation\Assertion\Email;
 use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase

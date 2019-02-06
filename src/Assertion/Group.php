@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Exception\ValidationException;
-use Igni\Validation\Rule;
+use Igni\Validation\Exception\InvalidArgumentException;
+use Igni\Validation\Assertion;
 use Igni\Validation\ValidationError;
 use ArrayAccess;
 
-class Group extends Rule
+class Group extends Assertion
 {
-    /** @var Rule[] */
+    /** @var Assertion[] */
     private $group;
 
     public function __construct(array $group)
@@ -53,8 +53,8 @@ class Group extends Rule
     private function validateRules(array $rules): void
     {
         foreach($rules as $name => $rule) {
-            if (!$rule instanceof Rule) {
-                throw ValidationException::forInvalidRule($rule);
+            if (!$rule instanceof Assertion) {
+                throw InvalidArgumentException::forInvalidRule($rule);
             }
             $rule->setName($name);
         }

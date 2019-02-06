@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
-use Igni\Validation\Exception\ValidationException;
+namespace Igni\Validation\Assertion;
+use Igni\Validation\Exception\InvalidArgumentException;
 
 /**
  * @uses AbstractRule::$attributes
@@ -19,7 +19,7 @@ trait RangeRuleTrait
         }
 
         if ($min > $max) {
-            ValidationException::forInvalidRangeSet();
+            InvalidArgumentException::forInvalidRangeSet();
         }
     }
 

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Number extends Rule implements RangeRule
+class Number extends Assertion implements RangeRule
 {
     public function __construct($min = null, $max = null)
     {

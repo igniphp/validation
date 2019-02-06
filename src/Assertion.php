@@ -2,45 +2,43 @@
 
 namespace Igni\Validation;
 
-use Igni\Validation\Exception\ValidationException;
-use Igni\Validation\Rules\LengthRule;
-use Igni\Validation\Rules\RangeRule;
+use Igni\Validation\Exception\InvalidArgumentException;
+use Igni\Validation\Assertion\LengthRule;
+use Igni\Validation\Assertion\RangeRule;
 use BadMethodCallException;
 
 /**
  * Builder methods for possible validation rules.
  *
- * @method static Rules\Alnum alnum(int $min = null, int $max = null)
- * @method static Rules\Alpha alpha(int $min = null, int $max = null)
- * @method static Rules\Boolean boolean(int $min = null, int $max = null)
- * @method static Rules\Chain chain(Rule ...$rules)
- * @method static Rules\Contains contains(string $text)
- * @method static Rules\Date date(string $format = null, $min = null, $max = null)
- * @method static Rules\Email email()
- * @method static Rules\Falsy falsy()
- * @method static Rules\Group group(array $definition)
- * @method static Rules\In in(...$possibleValues)
- * @method static Rules\Integer integer(int $min = null, int $max = null)
- * @method static Rules\Ip ip()
- * @method static Rules\Ipv4 ipv4()
- * @method static Rules\Ipv6 ipv6()
- * @method static Rules\Number number(float $min = null, float $max = null)
- * @method static Rules\Uuid uuid()
- * @method static Rules\Regex regex(string $regex)
- * @method static Rules\Text text(int $min = null, int $max = null)
- * @method static Rules\Truthy truthy()
- * @method static Rules\Uri uri()
- * @method static Rules\Url url()
+ * @method static Assertion\Alnum alnum(int $min = null, int $max = null)
+ * @method static Assertion\Alpha alpha(int $min = null, int $max = null)
+ * @method static Assertion\Boolean boolean(int $min = null, int $max = null)
+ * @method static Assertion\Chain chain(Assertion ...$rules)
+ * @method static Assertion\Contains contains(string $text)
+ * @method static Assertion\Date date(string $format = null, $min = null, $max = null)
+ * @method static Assertion\Email email()
+ * @method static Assertion\Falsy falsy()
+ * @method static Assertion\Group group(array $definition)
+ * @method static Assertion\In in(...$possibleValues)
+ * @method static Assertion\Integer integer(int $min = null, int $max = null)
+ * @method static Assertion\Ip ip()
+ * @method static Assertion\Ipv4 ipv4()
+ * @method static Assertion\Ipv6 ipv6()
+ * @method static Assertion\Number number(float $min = null, float $max = null)
+ * @method static Assertion\Uuid uuid()
+ * @method static Assertion\Regex regex(string $regex)
+ * @method static Assertion\Text text(int $min = null, int $max = null)
+ * @method static Assertion\Truthy truthy()
+ * @method static Assertion\Uri uri()
+ * @method static Assertion\Url url()
  *
  * @example:
  * Constrain::alnum(2)('test');
  *
  */
-abstract class Rule implements Validator
+abstract class Assertion implements Validator
 {
     use StaticRuleFactory;
-
-    private const RULES_NAMESPACE = '\\Igni\\Validation\\Rules\\';
 
     /** @var string */
     protected $name;
@@ -56,7 +54,7 @@ abstract class Rule implements Validator
     public function validate($input): void
     {
         if (!$this->isValid($input)) {
-            throw ValidationException::forValidationError($this->errors[0]);
+            throw InvalidArgumentException::forValidationError($this->errors[0]);
         }
     }
 
@@ -115,14 +113,14 @@ abstract class Rule implements Validator
         return true;
     }
 
-    public function required(bool $required = true): Rule
+    public function required(bool $required = true): Assertion
     {
         $this->attributes['required'] = $required;
 
         return $this;
     }
 
-    public function setName(string $name): Rule
+    public function setName(string $name): Assertion
     {
         $this->attributes['name'] = $name;
         $this->name = $name;

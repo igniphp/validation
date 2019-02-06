@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Igni\Validation\Rules;
+namespace Igni\Validation\Assertion;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 
-class Chain extends Rule
+class Chain extends Assertion
 {
-    /** @var Rule[] */
+    /** @var Assertion[] */
     private $chain;
 
-    public function __construct(Rule ...$rules)
+    public function __construct(Assertion ...$rules)
     {
         $this->chain = $rules;
     }

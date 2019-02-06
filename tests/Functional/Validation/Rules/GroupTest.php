@@ -2,10 +2,10 @@
 
 namespace IgniTestFunctional\Validator\Rules;
 
-use Igni\Validation\Rule;
+use Igni\Validation\Assertion;
 use Igni\Validation\Error\EmptyValueError;
 use Igni\Validation\Error\OutOfRangeError;
-use Igni\Validation\Rules\Group;
+use Igni\Validation\Assertion\Group;
 use PHPUnit\Framework\TestCase;
 
 class GroupTest extends TestCase
@@ -13,9 +13,9 @@ class GroupTest extends TestCase
     public function testAllSucceed(): void
     {
         $validateUserData = new Group([
-            'name' => Rule::text()->required(false),
-            'email' => Rule::email(),
-            'age' => Rule::integer(2, 100),
+            'name' => Assertion::text()->required(false),
+            'email' => Assertion::email(),
+            'age' => Assertion::integer(2, 100),
         ]);
 
         $result = $validateUserData->isValid([
@@ -29,9 +29,9 @@ class GroupTest extends TestCase
     public function testWhenFails(): void
     {
         $validateUserData = new Group([
-            'name' => Rule::text(),
-            'email' => Rule::email(),
-            'age' => Rule::integer(2, 100),
+            'name' => Assertion::text(),
+            'email' => Assertion::email(),
+            'age' => Assertion::integer(2, 100),
         ]);
 
         $result = $validateUserData->isValid([
@@ -51,9 +51,9 @@ class GroupTest extends TestCase
     public function testAllowEmpty(): void
     {
         $validateUserData = new Group([
-            'name' => Rule::text(),
-            'email' => Rule::email()->required(false),
-            'age' => Rule::integer(2, 100),
+            'name' => Assertion::text(),
+            'email' => Assertion::email()->required(false),
+            'age' => Assertion::integer(2, 100),
         ]);
 
         self::assertTrue($validateUserData->isValid([

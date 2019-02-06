@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Integer;
+use Igni\Validation\Assertion\Integer;
 use PHPUnit\Framework\TestCase;
 
 class IntegerTest extends TestCase

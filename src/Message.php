@@ -8,13 +8,13 @@ class Message
     protected $message;
     protected $context;
 
-    public function __construct(string $message, Rule $context)
+    public function __construct(string $message, Assertion $context)
     {
         $this->message = $message;
         $this->context = $context;
     }
 
-    public function getContext(): Rule
+    public function getContext(): Assertion
     {
         return $this->context;
     }

@@ -2,21 +2,16 @@
 
 namespace Igni\Validation;
 
-use BadMethodCallException;
-use Igni\Validation\Exception\StaticFactoryException;
+use Igni\Validation\Exception\BadMethodCallException;
 
 /**
  * Magic static factory method for convenient Rule instantiation.
  */
 trait StaticRuleFactory
 {
-    public static function __callStatic($name, $arguments): Rule
+    public static function __callStatic($name, $arguments): Assertion
     {
-        if (self::RULES_NAMESPACE === null) {
-            throw StaticFactoryException::forMissingRulesNamespace();
-        }
-
-        $ruleClass = self::RULES_NAMESPACE . ucfirst($name);
+        $ruleClass = '\\Igni\\Validation\\Assertion\\' . ucfirst($name);
         if (!class_exists($ruleClass)) {
             throw new BadMethodCallException("Validator (${name}) does not exists.");
         }

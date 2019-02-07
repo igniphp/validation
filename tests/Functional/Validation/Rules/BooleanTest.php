@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Boolean;
+use Igni\Validation\Assertion\Boolean;
 use PHPUnit\Framework\TestCase;
 
 class BooleanTest extends TestCase
@@ -10,16 +10,16 @@ class BooleanTest extends TestCase
     public function testPass(): void
     {
         $validator = new Boolean();
-        self::assertTrue($validator(true));
-        self::assertTrue($validator(false));
+        self::assertTrue($validator->validate(true));
+        self::assertTrue($validator->validate(false));
     }
 
     public function testFailure(): void
     {
         $validator = new Boolean();
-        self::assertFalse($validator('1'));
-        self::assertFalse($validator('true'));
-        self::assertFalse($validator('false'));
-        self::assertFalse($validator(1));
+        self::assertFalse($validator->validate('1'));
+        self::assertFalse($validator->validate('true'));
+        self::assertFalse($validator->validate('false'));
+        self::assertFalse($validator->validate(1));
     }
 }

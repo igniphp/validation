@@ -2,7 +2,7 @@
 
 namespace IgniTest\Functional\Validation\Rules;
 
-use Igni\Validation\Rules\Email;
+use Igni\Validation\Assertion\Email;
 use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase
@@ -14,7 +14,7 @@ class EmailTest extends TestCase
     public function testPass(string $address): void
     {
         $validator = new Email();
-        self::assertTrue($validator($address));
+        self::assertTrue($validator->validate($address));
     }
 
     /**
@@ -24,7 +24,7 @@ class EmailTest extends TestCase
     public function testFailure(string $address): void
     {
         $validator = new Email();
-        self::assertFalse($validator($address));
+        self::assertFalse($validator->validate($address));
     }
 
     public function provideValidEmails(): array

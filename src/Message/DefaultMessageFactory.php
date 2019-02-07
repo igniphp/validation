@@ -2,16 +2,15 @@
 
 namespace Igni\Validation\Message;
 
-use Igni\Validation\Failures\EmptyValueFailure;
-use Igni\Validation\Failures\InvalidLengthFailure;
-use Igni\Validation\Failures\OutOfRangeFailure;
-use Igni\Validation\Failures\ValueTooHigh;
-use Igni\Validation\Failures\ValueTooLong;
-use Igni\Validation\Failures\ValueTooLow;
-use Igni\Validation\Failures\ValueTooShort;
-use Igni\Validation\Message;
-use Igni\Validation\ValidationFailure;
-use Igni\Validation\Rules;
+use Igni\Validation\Assertion;
+use Igni\Validation\Error\EmptyValueError;
+use Igni\Validation\Error\InvalidLengthError;
+use Igni\Validation\Error\OutOfRangeError;
+use Igni\Validation\Error\ValueTooHigh;
+use Igni\Validation\Error\ValueTooLong;
+use Igni\Validation\Error\ValueTooLow;
+use Igni\Validation\Error\ValueTooShort;
+use Igni\Validation\ValidationError;
 
 final class DefaultMessageFactory implements MessageFactory
 {
@@ -22,9 +21,7 @@ final class DefaultMessageFactory implements MessageFactory
     private const TOO_SHORT = '${name} has invalid length - must be longer or equal to ${min}.';
     private const TOO_LONG = '${name} has invalid length - must be shorter or equal to ${max}.';
     private const REQUIRED = '${name} is required.';
-
     private const DEFAULT_ASSERTION = '${name} is not valid.';
-
     private const INVALID_ALNUM = '${name} is not a valid alphanumeric string.';
     private const INVALID_ALPHA = '${name} is not a valid alphabetic sequence.';
     private const INVALID_BOOLEAN = '${name} is not a valid boolean value.';
@@ -34,29 +31,41 @@ final class DefaultMessageFactory implements MessageFactory
     private const INVALID_FALSY = '${name} is not a valid falsy expression.';
     private const INVALID_IN = '${name} is not in ${valid_values}.';
     private const INVALID_INTEGER = '${name} is not a valid integer.';
+    private const INVALID_IP = '${name} is not a valid ip address.';
+    private const INVALID_IPV4 = '${name} is not a valid ip v4 address.';
+    private const INVALID_IPV6 = '${name} is not a valid ip v6 address.';
     private const INVALID_NUMBER = '${name} is not a valid number.';
     private const INVALID_REGEX = '${name} does not match pattern (${pattern}).';
     private const INVALID_TEXT = '${name} is not a valid text.';
     private const INVALID_TRUTHY = '${name} is not a valid truthy expression.';
+    private const INVALID_URI = '${name} is not a valid uri.';
+    private const INVALID_URL = '${name} is not a valid url.';
     private const INVALID_UUID = '${name} is not a valid uuid expression.';
 
     private static $defaultMap = [
         'default' => self::DEFAULT_ASSERTION,
-        Rules\Alnum::class => self::INVALID_ALNUM,
-        Rules\Alpha::class => self::INVALID_ALPHA,
-        Rules\Boolean::class => self::INVALID_BOOLEAN,
-        Rules\Contains::class => self::INVALID_CONTAINS,
-        Rules\Date::class => self::INVALID_DATE,
-        Rules\Email::class => self::INVALID_EMAIL,
-        Rules\Falsy::class => self::INVALID_FALSY,
-        Rules\In::class => self::INVALID_IN,
-        Rules\Integer::class => self::INVALID_INTEGER,
-        Rules\Number::class => self::INVALID_NUMBER,
-        Rules\Regex::class => self::INVALID_REGEX,
-        Rules\Text::class => self::INVALID_TEXT,
-        Rules\Truthy::class => self::INVALID_TRUTHY,
-        Rules\Uuid::class => self::INVALID_UUID,
+        Assertion\Alnum::class => self::INVALID_ALNUM,
+        Assertion\Alpha::class => self::INVALID_ALPHA,
+        Assertion\Boolean::class => self::INVALID_BOOLEAN,
+        Assertion\Contains::class => self::INVALID_CONTAINS,
+        Assertion\Date::class => self::INVALID_DATE,
+        Assertion\Email::class => self::INVALID_EMAIL,
+        Assertion\Falsy::class => self::INVALID_FALSY,
+        Assertion\In::class => self::INVALID_IN,
+        Assertion\Integer::class => self::INVALID_INTEGER,
+        Assertion\Ip::class => self::INVALID_IP,
+        Assertion\Ipv4::class => self::INVALID_IPV4,
+        Assertion\Ipv6::class => self::INVALID_IPV6,
+        Assertion\Number::class => self::INVALID_NUMBER,
+        Assertion\Regex::class => self::INVALID_REGEX,
+        Assertion\Text::class => self::INVALID_TEXT,
+        Assertion\Truthy::class => self::INVALID_TRUTHY,
+        Assertion\Uri::class => self::INVALID_URI,
+        Assertion\Url::class => self::INVALID_URL,
+        Assertion\Uuid::class => self::INVALID_UUID,
     ];
+
+    private const INTERPOLATION_PATTERN = '${%s}';
 
     private $map;
 
@@ -65,54 +74,69 @@ final class DefaultMessageFactory implements MessageFactory
         $this->map = self::$defaultMap + $map;
     }
 
-    public function create(ValidationFailure $failure): Message
+    public function create(ValidationError $error): string
     {
         switch (true) {
-            case $failure instanceof ValueTooHigh:
-                return new Message(self::TOO_HIGH, $failure->getContext());
+            case $error instanceof ValueTooHigh:
+                $template = self::TOO_HIGH;
+                break;
 
-            case $failure instanceof ValueTooLow:
-                return new Message(self::TOO_LOW, $failure->getContext());
+            case $error instanceof ValueTooLow:
+                $template = self::TOO_LOW;
+                break;
 
-            case $failure instanceof ValueTooLong:
-                return new Message(self::TOO_LONG, $failure->getContext());
+            case $error instanceof ValueTooLong:
+                $template = self::TOO_LONG;
+                break;
 
-            case $failure instanceof ValueTooShort:
-                return new Message(self::TOO_SHORT, $failure->getContext());
+            case $error instanceof ValueTooShort:
+                $template = self::TOO_SHORT;
+                break;
 
-            case $failure instanceof InvalidLengthFailure:
-                return new Message(self::INVALID_LENGTH, $failure->getContext());
+            case $error instanceof InvalidLengthError:
+                $template = self::INVALID_LENGTH;
+                break;
 
-            case $failure instanceof OutOfRangeFailure:
-                return new Message(self::OUT_OF_RANGE, $failure->getContext());
+            case $error instanceof OutOfRangeError:
+                $template = self::OUT_OF_RANGE;
+                break;
 
-            case $failure instanceof EmptyValueFailure:
-                return new Message(self::REQUIRED, $failure->getContext());
+            case $error instanceof EmptyValueError:
+                $template = self::REQUIRED;
+                break;
 
             default:
-                return $this->factoryForAssertionFailure($failure);
+                return $this->factoryForAssertionFailure($error);
         }
+
+        return $this->interpolateString($template, $error->getContext());
     }
 
-    private function factoryForAssertionFailure(ValidationFailure $failure): Message
+    private function factoryForAssertionFailure(ValidationError $error): string
     {
-        $context = $failure->getContext();
+        $context = $error->getContext();
 
-        if ($failure->hasMessage()) {
-            return new Message($failure->getMessage(), $context);
+        if ($error->hasMessage()) {
+            return $this->interpolateString($error->getMessage(), $context);
         }
 
         $ruleClass = get_class($context);
 
         if (isset($this->map[$ruleClass])) {
-            return new Message($this->map[$ruleClass], $context);
+            return $this->interpolateString($this->map[$ruleClass], $context);
         }
 
-        return new Message($this->map['default'], $context);
+        return $this->interpolateString($this->map['default'], $context);
     }
 
-    public function setMessageForAssertion(string $assertionClass, string $message)
+    private function interpolateString(string $message, Assertion $assertion): string
     {
-        $this->map[$assertionClass] = $message;
+        $params = [];
+        foreach($assertion->getAttributes() as $name => $value)
+        {
+            $params[sprintf(self::INTERPOLATION_PATTERN, $name)] = $value;
+        }
+
+        return strtr($message, $params);
     }
 }

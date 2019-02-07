@@ -172,26 +172,26 @@ Creates validator that checks if passed value is valid date.
  - `$max` defines maximum date range
  
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
 $validator = Assertion::date('Y-m-d');
 var_dump($validator->validate('2018-09-10')); // true
- ```
+```
      
 ### `Assertion::email()`
 
 Creates validator that checks if passed value is valid email address.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
 $validator = Assertion::email();
 var_dump($validator->validate('test@test.com')); // true
- ```
+```
 
 ### `Assertion::falsy()`
 
@@ -253,13 +253,13 @@ Creates validator that checks if passed value is valid truthy expression;
 - `yes`
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
 $validator = Assertion::truthy();
 var_dump($validator->validate('yes')); // true
- ```
+```
 
 ### `Assertion::text(int $minLength = null, int $maxLength = null)`
 
@@ -283,13 +283,13 @@ var_dump($validator->validate('aaa')); // true
 Creates validator that checks if passed value exists in defined list of values.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
 $validator = Assertion::in('no', 'yes', 'test');
 var_dump($validator->validate('no')); // true
- ```
+```
 
 ### `Assertion::integer(int $min = null, int $max = null)`
 
@@ -300,7 +300,7 @@ Creates validator that checks if passed value is valid integer expression.
  - `$max` defines maximum value
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
@@ -313,7 +313,7 @@ var_dump($validator->validate(11)); // true
 Creates validator that checks if passed value is valid ip address.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
@@ -326,7 +326,7 @@ var_dump($validator->validate('123.123.123.123')); // true
 Creates validator that checks if passed value is valid ip v4 address.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
@@ -339,7 +339,7 @@ var_dump($validator->validate('123.123.123.123')); // true
 Creates validator that checks if passed value is valid ip v6 address.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
@@ -357,13 +357,13 @@ Creates validator that checks if passed value is valid number expression.
  - `$max` defines maximum value
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
 $validator = Assertion::number(10, 100);
 var_dump($validator->validate('11.2')); // true
- ```
+```
  
 ### `Assertion::uuid()`
 
@@ -413,7 +413,7 @@ Creates validator that accepts every non empty string.
 Creates validator that validates passed value by group of defined validators.
 
 #### Example
- ```php
+```php
 <?php
 use Igni\Validation\Assertion;
  
@@ -423,7 +423,7 @@ $validator = Assertion::group([
     'email' => Assertion::email(),
 ]);
 var_dump($validator->validate(['name' => 'John Doe', 'age' => 29, 'email' => 'john@gmail.com'])); // true
- ```
+```
 
 ## Creating custom validator
 

@@ -6,14 +6,9 @@ interface Validator
 {
     /**
      * @param mixed $input
-     */
-    public function validate($input): void;
-
-    /**
-     * @param mixed $input
      * @return bool
      */
-    public function isValid($input): bool;
+    public function validate($input): bool;
 
     /**
      * @return ValidationError[]

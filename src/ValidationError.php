@@ -94,7 +94,7 @@ class ValidationError
     public function toException(): InvalidArgumentException
     {
         $message = static::getMessageFactory()->create($this);
-        return new class($message->getMessage()) extends InvalidArgumentException {};
+        return new class($message) extends InvalidArgumentException {};
     }
 
     private static function getMessageFactory(): MessageFactory

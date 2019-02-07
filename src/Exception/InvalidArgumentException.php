@@ -16,9 +16,9 @@ class InvalidArgumentException extends \InvalidArgumentException implements Vali
         return new self('Allowed $max value cannot be lower than $min value.');
     }
 
-    public static function forInvalidRule($rule): self
+    public static function forInvalidAssertion($assertion): self
     {
-        $class = get_class($rule);
+        $class = get_class($assertion);
         return new self("Rule (${class}) is not valid instance of " . Assertion::class);
     }
 }

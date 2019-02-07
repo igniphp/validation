@@ -26,7 +26,7 @@ class Group extends Assertion
             return false;
         }
         foreach ($this->group as $name => $rule) {
-            if (!$rule->isValid($input[$name] ?? null)) {
+            if (!$rule->validate($input[$name] ?? null)) {
                 $this->errors[] = $rule->getErrors()[0];
             }
         }
@@ -54,7 +54,7 @@ class Group extends Assertion
     {
         foreach($rules as $name => $rule) {
             if (!$rule instanceof Assertion) {
-                throw InvalidArgumentException::forInvalidRule($rule);
+                throw InvalidArgumentException::forInvalidAssertion($rule);
             }
             $rule->setName($name);
         }

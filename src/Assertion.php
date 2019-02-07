@@ -46,19 +46,12 @@ abstract class Assertion implements Validator
     /** @var array */
     protected $attributes = [];
 
-    /** @var ValidationError */
+    /** @var ValidationError[] */
     protected $errors = [];
 
     abstract protected function assert($input): bool;
 
-    public function validate($input): void
-    {
-        if (!$this->isValid($input)) {
-            throw InvalidArgumentException::forValidationError($this->errors[0]);
-        }
-    }
-
-    public function isValid($input): bool
+    public function validate($input): bool
     {
         $this->attributes['input'] = $input;
 

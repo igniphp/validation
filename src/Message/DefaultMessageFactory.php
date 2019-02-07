@@ -2,6 +2,7 @@
 
 namespace Igni\Validation\Message;
 
+use Igni\Validation\Assertion;
 use Igni\Validation\Error\EmptyValueError;
 use Igni\Validation\Error\InvalidLengthError;
 use Igni\Validation\Error\OutOfRangeError;
@@ -10,8 +11,6 @@ use Igni\Validation\Error\ValueTooLong;
 use Igni\Validation\Error\ValueTooLow;
 use Igni\Validation\Error\ValueTooShort;
 use Igni\Validation\ValidationError;
-use Igni\Validation\Message;
-use Igni\Validation\Assertion;
 
 final class DefaultMessageFactory implements MessageFactory
 {
@@ -66,6 +65,8 @@ final class DefaultMessageFactory implements MessageFactory
         Assertion\Uuid::class => self::INVALID_UUID,
     ];
 
+    private const INTERPOLATION_PATTERN = '${%s}';
+
     private $map;
 
     public function __construct(array $map = [])
@@ -73,54 +74,69 @@ final class DefaultMessageFactory implements MessageFactory
         $this->map = self::$defaultMap + $map;
     }
 
-    public function create(ValidationError $error): Message
+    public function create(ValidationError $error): string
     {
         switch (true) {
             case $error instanceof ValueTooHigh:
-                return new Message(self::TOO_HIGH, $error->getContext());
+                $template = self::TOO_HIGH;
+                break;
 
             case $error instanceof ValueTooLow:
-                return new Message(self::TOO_LOW, $error->getContext());
+                $template = self::TOO_LOW;
+                break;
 
             case $error instanceof ValueTooLong:
-                return new Message(self::TOO_LONG, $error->getContext());
+                $template = self::TOO_LONG;
+                break;
 
             case $error instanceof ValueTooShort:
-                return new Message(self::TOO_SHORT, $error->getContext());
+                $template = self::TOO_SHORT;
+                break;
 
             case $error instanceof InvalidLengthError:
-                return new Message(self::INVALID_LENGTH, $error->getContext());
+                $template = self::INVALID_LENGTH;
+                break;
 
             case $error instanceof OutOfRangeError:
-                return new Message(self::OUT_OF_RANGE, $error->getContext());
+                $template = self::OUT_OF_RANGE;
+                break;
 
             case $error instanceof EmptyValueError:
-                return new Message(self::REQUIRED, $error->getContext());
+                $template = self::REQUIRED;
+                break;
 
             default:
                 return $this->factoryForAssertionFailure($error);
         }
+
+        return $this->interpolateString($template, $error->getContext());
     }
 
-    private function factoryForAssertionFailure(ValidationError $failure): Message
+    private function factoryForAssertionFailure(ValidationError $error): string
     {
-        $context = $failure->getContext();
+        $context = $error->getContext();
 
-        if ($failure->hasMessage()) {
-            return new Message($failure->getMessage(), $context);
+        if ($error->hasMessage()) {
+            return $this->interpolateString($error->getMessage(), $context);
         }
 
         $ruleClass = get_class($context);
 
         if (isset($this->map[$ruleClass])) {
-            return new Message($this->map[$ruleClass], $context);
+            return $this->interpolateString($this->map[$ruleClass], $context);
         }
 
-        return new Message($this->map['default'], $context);
+        return $this->interpolateString($this->map['default'], $context);
     }
 
-    public function setMessageForAssertion(string $assertionClass, string $message)
+    private function interpolateString(string $message, Assertion $assertion): string
     {
-        $this->map[$assertionClass] = $message;
+        $params = [];
+        foreach($assertion->getAttributes() as $name => $value)
+        {
+            $params[sprintf(self::INTERPOLATION_PATTERN, $name)] = $value;
+        }
+
+        return strtr($message, $params);
     }
 }

@@ -11,17 +11,17 @@ class AlphaTest extends TestCase
     public function testPass(): void
     {
         $validator = new Alpha(1, 10);
-        self::assertTrue($validator->isValid('a'));
-        self::assertTrue($validator->isValid('abc'));
+        self::assertTrue($validator->validate('a'));
+        self::assertTrue($validator->validate('abc'));
     }
 
     public function testFailure(): void
     {
         $validator = new Alpha(2, 10);
-        self::assertFalse($validator->isValid('a a'));
-        self::assertFalse($validator->isValid('12'));
-        self::assertFalse($validator->isValid('a1'));
-        self::assertFalse($validator->isValid(''));
+        self::assertFalse($validator->validate('a a'));
+        self::assertFalse($validator->validate('12'));
+        self::assertFalse($validator->validate('a1'));
+        self::assertFalse($validator->validate(''));
     }
 
     public function testFailOnReversedRange(): void

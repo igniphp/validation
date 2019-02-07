@@ -11,19 +11,19 @@ class AlnumTest extends TestCase
     public function testPass(): void
     {
         $validator = new Alnum(1, 10);
-        self::assertTrue($validator->isValid('a1'));
-        self::assertTrue($validator->isValid('12345'));
-        self::assertTrue($validator->isValid('test'));
-        self::assertTrue($validator->isValid('Test'));
+        self::assertTrue($validator->validate('a1'));
+        self::assertTrue($validator->validate('12345'));
+        self::assertTrue($validator->validate('test'));
+        self::assertTrue($validator->validate('Test'));
     }
 
     public function testFailure(): void
     {
         $validator = new Alnum(2, 10);
-        self::assertFalse($validator->isValid('a'));
-        self::assertFalse($validator->isValid('12345678910'));
-        self::assertFalse($validator->isValid('&*@^'));
-        self::assertFalse($validator->isValid(''));
+        self::assertFalse($validator->validate('a'));
+        self::assertFalse($validator->validate('12345678910'));
+        self::assertFalse($validator->validate('&*@^'));
+        self::assertFalse($validator->validate(''));
     }
 
     public function testFailOnReversedRange(): void

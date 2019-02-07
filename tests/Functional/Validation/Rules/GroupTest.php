@@ -18,7 +18,7 @@ class GroupTest extends TestCase
             'age' => Assertion::integer(2, 100),
         ]);
 
-        $result = $validateUserData->isValid([
+        $result = $validateUserData->validate([
             'email' => 'test@email.com',
             'age' => 21,
         ]);
@@ -34,7 +34,7 @@ class GroupTest extends TestCase
             'age' => Assertion::integer(2, 100),
         ]);
 
-        $result = $validateUserData->isValid([
+        $result = $validateUserData->validate([
             'name' => 'John Test',
             'age' => 121,
         ]);
@@ -56,12 +56,12 @@ class GroupTest extends TestCase
             'age' => Assertion::integer(2, 100),
         ]);
 
-        self::assertTrue($validateUserData->isValid([
+        self::assertTrue($validateUserData->validate([
             'name' => 'John Test',
             'age' => 99,
         ]));
 
-        self::assertFalse($validateUserData->isValid([
+        self::assertFalse($validateUserData->validate([
             'email' => 'test@email.com',
             'age' => 99,
         ]));

@@ -17,7 +17,7 @@ class Chain extends Assertion
     protected function assert($input): bool
     {
         foreach ($this->chain as $rule) {
-            if (!$rule->isValid($input)) {
+            if (!$rule->validate($input)) {
                 $this->errors[] = $rule->getErrors();
             }
         }

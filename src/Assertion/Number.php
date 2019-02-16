@@ -8,11 +8,11 @@ class Number extends Assertion implements RangeRule
 {
     public function __construct($min = null, $max = null)
     {
-        if ($min !== null) {
+        if ($min !== null && $min !== '') {
             $this->attributes['min'] = $min;
         }
 
-        if ($max !== null) {
+        if ($max !== null && $max !== '') {
             $this->attributes['max'] = $max;
         }
     }

@@ -74,6 +74,7 @@ throw $errors[0]->toException();
  - [contains](#assertioncontainsstring-value)
  - [date](#assertiondatestring-format--null-min--null-max--null)
  - [email](#assertionemail)
+ - [each](#assertioneachvalidator-validator)
  - [falsy](#assertionfalsy)
  - [group](#assertiongrouparray-validatorshash)
  - [in](#assertioninvalues)
@@ -191,6 +192,22 @@ use Igni\Validation\Assertion;
  
 $validator = Assertion::email();
 var_dump($validator->validate('test@test.com')); // true
+```
+
+### `Assertion::each(Validator $validator)`
+
+Creates validator that checks if each item in passed set can be successfully validated against `$validator`.
+
+#### Parameters
+ - `$validator` validator used for each item of the passed set.
+
+#### Example
+```php
+<?php
+use Igni\Validation\Assertion;
+ 
+$validator = Assertion::each(Assertion::date('Y-m-d'));
+var_dump($validator->validate(['2019-01-01', '2018-10-11'])); // true
 ```
 
 ### `Assertion::falsy()`

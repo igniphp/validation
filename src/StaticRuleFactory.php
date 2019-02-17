@@ -22,7 +22,7 @@ use Igni\Validation\Exception\BadMethodCallException;
  * @method static Assertion\Ip ip()
  * @method static Assertion\Ipv4 ipv4()
  * @method static Assertion\Ipv6 ipv6()
- * @method static Assertion\Number number(float $min = null, float $max = null)
+ * @method static Assertion\Number number(string|float|int $min = null, string|float|int $max = null)
  * @method static Assertion\Uuid uuid()
  * @method static Assertion\Regex regex(string $regex)
  * @method static Assertion\Text text(int $min = null, int $max = null)
